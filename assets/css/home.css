@@ -1,0 +1,88 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+#page-heading{
+    text-align: center;
+    margin-top: 25px;
+    color: grey;
+
+}
+#container-box{
+    margin: auto;
+    width: 60%;
+    border: 3px solid #73AD21;
+    padding: 10px;
+    height: 500px;
+    overflow: auto;
+    text-align:justify;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    border: 3px solid #73AD21;
+    padding: 10px; */
+}
+#table-cotent{
+    display: flex;
+}
+.contact{
+    display: flex;
+    background-color:lightskyblue;
+    color: white;
+    padding: 3px 10px;
+    border: 1px solid white;
+}
+.contact:hover{
+    background-color: grey;
+}
+.contact .details{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    flex-wrap: wrap;    
+}
+.contact .delete-btn{
+  width: 10%;
+  text-align: center;
+  margin-top: 15px;
+}
+.contact .delete-btn a{
+   color: white;
+   background-color: red; 
+}
+#delete-contact a{
+    cursor: pointer;
+    background-color: white;
+    color: red;
+}
+
+#contact-list{
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+    color: white;
+    width: 500px;
+    height: 30px;
+    border: 2px solid white;
+    padding: 10px;
+}
+.input-contact-form{
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+.input-contact-form input{
+    border: 0px;
+    border-bottom: 1px solid grey;
+}
+.input-contact-form button {
+    background-color: grey;
+    cursor: pointer;
+    color: aliceblue;
+    border: 0px;
+    width: 100px;
+    height: 31px;
+}

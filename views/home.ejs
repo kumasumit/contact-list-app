@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= locals.title %>
+    </title>
+    <script src="https://kit.fontawesome.com/088c494850.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/home.css">
+
+</head>
+
+<body>
+    <!-- <h1>Rendering from Ejs template......</h1> -->
+    <h1 id="page-heading">
+        <i class="fas fa-address-book"></i>
+        My Contacts List
+    </h1>
+
+    <div id="container-box">
+        <div class="contacts-list-container">
+            <% for( i of contacts_list) {%>
+
+                <div class="contact">
+                    <div class="details">
+                        <p>
+                            <%= i.name%>
+                        </p>
+                        <p>
+                            <%= i.mobile%>
+                        </p>
+                    </div>
+                    <div class="delete-btn">
+                        <a href="/delete-contact/?mobile=<%= i.mobile %>">
+                            <i class="fas fa-window-close">
+                            </i>
+                        </a>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+        <form class="input-contact-form" action="/create-contact" method="POST">
+            <input type="text" placeholder="Enter Name" name="name" required/>
+            <input type="number" placeholder="Enter Mobile Number" name="mobile" required/>
+            <button type="submit">Add Contact</button>
+        </form>
+
+
+    </div>
+
+
+    <script type="text/javascript" src="/js/home.js"></script>
+</body>
+
+</html>
