@@ -2,6 +2,8 @@
 const express = require('express')
 const path = require('path');
 const bodyParser = require('body-parser')
+const db = require("./config/mongoose");
+const Contacts = require("./models/contact");
 const app = express()
 
 //Set Commands tells you where to look for the view layer and the middleware layer
@@ -48,22 +50,37 @@ app.get('/', (req, res) => {
   // C:\Users\lenovo\Desktop\BackEnd FullStack Development in Node js\Projects\contacts_list
   // __dirname gives route of complete path
   // res.send('Cool it is running or is it ?')
-  return res.render('home', 
-  {
-    title: "My Contacts List",
-    contacts_list: contactsList,
-    // both the things title  and contacts_list are called context variables
-  });
+  Contacts.find({}, function(err,contacts){
+    if(err){
+      console.log("Error in fetching contacts from db");
+      return;
+    }
+    return res.render('home', 
+    {
+      title: "My Contacts List",
+      contacts_list: contacts,
+      // both the things title  and contacts_list are called context variables
+    });
+  })
+  
 })
 //delete contact
 app.get('/delete-contact', function(req, res){
   // console.log(req.query);
-  let mobile = req.query.mobile;
-  let contactIndex = contactsList.findIndex(contact=>contact.mobile==mobile);
-  if(contactIndex!==-1){
-    contactsList.splice(contactIndex, 1);
-  }
-  return res.redirect('back'); 
+  //get the id from query in ul
+  let id = req.query.id;
+  //find the contact in the database using id
+  Contacts.findByIdAndDelete(id, function(err){
+    if(err){
+      console.log("error in deleting an object/contact document from database");
+      return;
+    }
+    return res.redirect('back');
+  })
+  // let contactIndex = contactsList.findIndex(contact=>contact.mobile==mobile);
+  // if(contactIndex!==-1){
+  //   contactsList.splice(contactIndex, 1);
+  // }
 })
 //Post Requests
 app.post("/create-contact", function(req, res)
@@ -72,12 +89,22 @@ app.post("/create-contact", function(req, res)
   // console.log(req.body);
   // console.log(req.body.name);
   // console.log(req.body.mobile);
-  contactsList.push({
-    name: req.body.name,
-    mobile: req.body.mobile,
-  })
+  // contactsList.push({
+  //   name: req.body.name,
+  //   mobile: req.body.mobile,
+  // })
   // return res.redirect("/");
-  return res.redirect('back');
+  Contacts.create({
+    name: req.body.name,
+    mobile: req.body.mobile
+  }, function(err, newContact){
+    if(err){
+      console.log('error in creating a contact!')
+      return
+    }
+    // console.log("*******", newContact);
+    return res.redirect('back');
+  })
   // you can use back if you want to go back to a very long url
 
 })
